@@ -58,12 +58,14 @@ data_dict = pickle.load( open("../final_project/final_project_dataset.pkl", "r")
 data_dict.pop("TOTAL", 0)
 keys=data_dict.keys()
 max_stock=0
+max_sal=0
+min_sal=0
 min_stock=80000000
 for k in keys:
-    max_stock=greatest(max_stock,data_dict[k]["salary"])
-    min_stock=least(min_stock,data_dict[k]["salary"])
-    # max_stock=greatest(max_stock,data_dict[k]["exercised_stock_options"])
-    # min_stock=least(min_stock,data_dict[k]["exercised_stock_options"])
+    max_sal=greatest(max_stock,data_dict[k]["salary"])
+    min_sal=least(min_stock,data_dict[k]["salary"])
+    max_stock=greatest(max_stock,data_dict[k]["exercised_stock_options"])
+    min_stock=least(min_stock,data_dict[k]["exercised_stock_options"])
 
 print max_stock
 print min_stock
@@ -78,6 +80,14 @@ features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
 
+from sklearn.preprocessing import MinMaxScaler
+import numpy
+scaler=MinMaxScaler()
+sto=numpy.array([[float(min_stock)],[1000000.],[float(max_stock)]])
+print scaler.fit_transform(sto)
+sal=numpy.array([[float(min_sal)],[200000.],[float(max_sal)]])
+print scaler.fit_transform(sal)
+
 
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to 
@@ -91,7 +101,7 @@ plt.show()
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
 from sklearn.cluster import KMeans
-import numpy as np
+
 kmean=KMeans(n_clusters=2).fit(finance_features)
 #pred=kmean.predict(data)
 pred=kmean.predict(finance_features)
