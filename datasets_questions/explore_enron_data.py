@@ -23,8 +23,13 @@ def greatest(a1, a, b1, b):
 import pickle
 
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
+# names = pickle.load(open("../final_project/poi_names.txt", "rb"))
 
 keys=enron_data.keys()
+# print names
+print enron_data
+print len(enron_data[keys[0]])
+
 #print enron_data
 
 
