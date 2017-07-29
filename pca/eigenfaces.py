@@ -17,7 +17,7 @@ The dataset used in this example is a preprocessed excerpt of the
 
 
 print __doc__
-
+import PIL
 from time import time
 import logging
 import pylab as pl
@@ -74,7 +74,7 @@ pca = RandomizedPCA(n_components=n_components, whiten=True).fit(X_train)
 print "done in %0.3fs" % (time() - t0)
 
 eigenfaces = pca.components_.reshape((n_components, h, w))
-
+print "variance ratio ", pca.explained_variance_ratio_
 print "Projecting the input data on the eigenfaces orthonormal basis"
 t0 = time()
 X_train_pca = pca.transform(X_train)
